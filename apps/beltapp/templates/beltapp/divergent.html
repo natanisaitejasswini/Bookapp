@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Book</title>
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'beltapp/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'beltapp/css/loginreg.css' %}">
+    <script type="text/javascript" src="{% static 'beltapp/js/bootstrap.min.js' %}"></script>
+    </head>
+  <body>
+    <a href="/books">Home</a> | 
+    <a href="/logout">Logout</a>
+    <h3>Book Title: {{book.title}}</h3>
+    <p>Author: {{book.author}}</p>
+    <h4>Reviews:</h4>
+    <hr>
+    {% for review in reviews %}
+    {% if review.rating == "5" %}
+      <p>Rating:
+      <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+      <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+      <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+      <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+      <span class="glyphicon glyphicon-star" aria-hidden="true"></span></p>
+    {% endif %}
+    {% if review.rating == "4" %}
+      <p>Rating:
+      <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+      <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+      <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+      <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+      <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span></p>
+    {% endif %}
+    {% if review.rating == "4" %}
+      <p>Rating:
+      <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+      <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+      <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+      <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+      <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span></p>
+    {% endif %}
+    {% if review.rating == "3" %}
+      <p>Rating:
+      <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+      <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+      <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+      <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+      <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span></p>
+    {% endif %}
+    {% if review.rating == "2" %}
+      <p>Rating:
+      <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+      <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+      <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+      <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+      <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span></p>
+    {% endif %}
+    {% if review.rating == "1" %}
+      <p>Rating:
+      <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+      <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+      <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+      <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+      <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span></p>
+    {% endif %}
+    {% if review.rating == "0" %}
+      <p>Rating:
+      <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+      <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+      <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+      <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+      <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span></p>
+    {% endif %}
+    <p><a href="/users/{{review.user.id}}">{{review.user.first_name}}</a> says:<em>{{review.review}}</em></p>
+    <p><em>Posted on: {{review.created_at}}</em></p>
+    <p><a href="/delete_review/{{review.id}}">
+    Delete Review</a></p>
+    <hr>
+    {% endfor %}
+    <form action="/add_review/{{book.id}}" method="post">
+      {% csrf_token %}
+      <p>Add a Review:</p>
+      <p><textarea cols="40" rows="8" name="review"></textarea></p>
+      Rating:
+      <select name="rating">
+        <option>5</option>
+        <option>4</option>
+        <option>3</option>
+        <option>2</option>
+        <option>1</option>
+      </select>
+      <input type="hidden" name="bookid" value="{{book.id}}">
+      <p><input type="submit" value="Submit Review"></p>
+    </form>
+  </body>
+</html>

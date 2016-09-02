@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>User Reviews</title>
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'beltapp/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'beltapp/css/loginreg.css' %}">
+    <script type="text/javascript" src="{% static 'beltapp/js/bootstrap.min.js' %}"></script>
+  </head>
+  <body>
+    <a href="/books">Home</a> | <a href="/books/add">Add a Book and Review</a> | <a href="/log_off">Logout</a>
+    <h3>User Alias: {{user.first_name}}</h3>
+    <p>Name: {{user.first_name}} {{user.last_name}}</p>
+    <p>Email: {{user.email}}</p>
+    {% for user in users %}
+    <p>Total Reviews: {{user.usersratings}}</p>
+    {% endfor %}
+    <h3>Posted Reviews on the following books:</h3>
+    {% for review in reviews %}
+    <p><a href="/book/{{review.book.id}}">{{review.book.title}}</a></p>
+    {% endfor %}
+  </body>
+</html>

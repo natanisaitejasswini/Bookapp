@@ -1,0 +1,91 @@
+<!DOCTYPE HTML>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>My Django Books Page</title>
+    {%load staticfiles%}
+    <link rel="stylesheet" type="text/css" href="{% static 'beltapp/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'beltapp/css/loginreg.css' %}">
+    <script type="text/javascript" src="{% static 'beltapp/js/bootstrap.min.js' %}"></script>
+  <body>
+    <div>
+    <a href="/books/add">Add Book and Review</a> | 
+    <a href="/logout">Logout</a>
+    <h3>Welcome,{{user.first_name}}</h3>  
+    </div>
+    <div class="right">
+    <h4>Recent Book Reviews:</h4>
+    {% for review in reviews %}
+      <a href="/book/{{review.book.id}}">{{review.book.title}}</a>
+      {% if review.rating == "5" %}
+        <p>Rating:
+        <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+        <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+        <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+        <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+        <span class="glyphicon glyphicon-star" aria-hidden="true"></span></p>
+      {% endif %}
+      {% if review.rating == "4" %}
+        <p>Rating:
+        <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+        <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+        <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+        <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+        <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span></p>
+      {% endif %}
+      {% if review.rating == "4" %}
+        <p>Rating:
+        <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+        <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+        <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+        <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+        <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span></p>
+      {% endif %}
+      {% if review.rating == "3" %}
+        <p>Rating:
+        <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+        <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+        <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+        <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+        <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span></p>
+      {% endif %}
+      {% if review.rating == "2" %}
+        <p>Rating:
+        <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+        <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+        <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+        <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+        <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span></p>
+      {% endif %}
+      {% if review.rating == "1" %}
+        <p>Rating:
+        <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+        <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+        <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+        <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+        <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span></p>
+      {% endif %}
+      {% if review.rating == "0" %}
+        <p>Rating:
+        <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+        <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+        <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+        <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+        <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span></p>
+      {% endif %}
+      <p><a href="/users/{{review.user.id}}">{{review.user.first_name}}</a> says: <em>{{review.review}}</em></p>
+      <p><em>Posted on {{review.created_at}}</em></p>
+      <hr>
+    {% endfor %}
+  </div>
+  <div class="left">
+    <h3>Other Books with Reviews:</h3>
+    <div class="scroll">
+    {% for abook in book %}
+    <p><a href="/book/{{abook.id}}">{{abook.title}}</a></p>
+    {% endfor %}
+    </div>
+  </div>
+</body>
+</html>
+  

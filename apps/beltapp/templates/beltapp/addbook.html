@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Add Book</title>
+    {%load staticfiles%}
+    <link rel="stylesheet" type="text/css" href="{% static 'beltapp/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'beltapp/css/loginreg.css' %}">
+    <script type="text/javascript" src="{% static 'beltapp/js/bootstrap.min.js' %}"></script>
+  <body>
+    <a href="/books">Home</a> | 
+    <a href="/logout">Logout</a>
+    <h3>Add a New Book Title and a Review</h3>
+    <form class="form" action="/new_book_review" method="post">
+      {% csrf_token %}
+      <p>Book Title: <input type="text" name="title" value=" "></p>
+      <p>Author: </p>
+        <p><select name="author">
+        {% for book in books %}
+          <option value="author">{{book.author}}</option>
+        {% endfor %}
+        </select></p>
+        <p>Or add a new author: <input type="text" name="author"></p>
+      <p>Add a Review:</p>
+      <p><textarea cols="40" rows="8" name="review"></textarea></p>
+      Rating:
+      <select name="rating">
+        <option>5</option>
+        <option>4</option>
+        <option>3</option>
+        <option>2</option>
+        <option>1</option>
+      </select>
+      <p><input type="submit" value="Add book and review"></p>
+    </form>
+  </body>
+</html>
+
+  
